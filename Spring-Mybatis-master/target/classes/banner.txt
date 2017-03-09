@@ -1,0 +1,7 @@
+===========================================================
+
+                  @ David's Spring-Boot Project @
+
+===========================================================
+${application.formatted-version}
+${spring-boot.formatted-version}
