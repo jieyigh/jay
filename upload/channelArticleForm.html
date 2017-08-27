@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta id="localeContainer" data-localePath="cms/channelArticle">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CmsChannelArticle</title>
+    <link href="../../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../plugins/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css"/>
+    <link rel="stylesheet" href="../../plugins/select2/theme/select2-bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../plugins/labelauty/jquery-labelauty.css" />
+    <link rel="stylesheet" href="../../plugins/uploadify/uploadify.css"/>
+    <link href="../../css/common.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../plugins/webuploader/webuploader.css">
+</head>
+<body>
+<div id="main">
+    <div class="ibox ibox-form">
+        <div class="ibox-content">
+            <form id="addChannelArticleImgForm">
+            </form>
+            <form id="addChannelArticleForm" class="form-horizontal" enctype="multipart/form-data">
+                <input class="form-control hidden" id="id" name="id" type="text"/>
+                <input class="form-control hidden" id="channelId" name="channelId" type="text"/>
+                <input class="form-control hidden" id="categoryId" name="categoryId" type="text"/>
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#field1" data-toggle="tab">基本信息</a></li>
+                    <li><a href="#field2" data-toggle="tab">扩展选项</a></li>
+                    <li><a href="#field3" data-toggle="tab">详细描述</a></li>
+                    <li><a href="#field4" data-toggle="tab">SEO选项</a></li>
+                </ul>
+                <div class="tab-content pt-20">
+                    <div class="tab-pane active" id="field1">
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 icon-required"
+                                       data-locale="cms.channelArticle.column.categoryName"
+                                       for="categoryId">所属类别</label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" id="categoryName" name="categoryName"
+                                           readonly="readonly"
+                                           onclick="channelArticleForm.selectArticleCategory()"
+                                           required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 icon-required"
+                                       data-locale="cms.channelArticle.column.isRelease"
+                                       for="isRelease">是否发布</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control select-ajax-data" data-toggle="dictionary" data-type="flag"
+                                            style="width:100%"
+                                            name="isRelease" id="isRelease">
+                                    </select>
+                                    <!--<select class="form-control select-ajax-data"-->
+                                            <!--style="width:100%"-->
+                                            <!--name="isRelease" id="isRelease">-->
+                                    <!--</select>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 "
+                                       data-locale="cms.channelArticle.column.recommendType"
+                                >推荐类型</label>
+                                <div class="col-sm-7">
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" value="isMsg" name="recommendType"  data-labelauty="允许评论" />
+                                        <input type="checkbox" value="isTop" name="recommendType"  data-labelauty="置顶" />
+                                        <input type="checkbox" value="isRed" name="recommendType"  data-labelauty="推荐" />
+                                        <input type="checkbox" value="isHot" name="recommendType"  data-labelauty="热门" />
+                                        <input type="checkbox" value="isSlide" name="recommendType"  data-labelauty="幻灯片" />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 icon-required"
+                                       data-locale="cms.channelArticle.column.title"
+                                       for="title">内容标题</label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" id="title" name="title" required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 icon-required"
+                                       data-locale="cms.channelArticle.column.tags"
+                                       for="tags">Tags标签</label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" id="tags" name="tags" required
+
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 icon-required"
+                                >封面图片</label>
+                                <div class="col-sm-7 no-pd-rg">
+                                    <!--<label style="cursor: pointer" for="file">-->
+                                        <!--<i class="fa fa-upload"></i>-->
+                                        <!--<input type="file" readonly="readonly" class="form-control" id="file" style="display: none;" name="file"-->
+                                               <!--onchange="channelArticleForm.uploadImgUrl()" hidden/>-->
+                                        <!--<div id="img_box"></div>-->
+                                    <!--</label>-->
+                                    <input type="file" readonly="readonly" class="form-control" id="file" style="display: none;" name="file"
+                                           onchange="channelArticleForm.uploadImgUrl()"/>
+                                    <input class="form-control" id="imgUrl" name="imgUrl"/>
+
+                                    <!--<div id="img_box"></div>-->
+
+                                </div>
+                                <div class="col-sm-2 no-pd-lf">
+                                    <label class="btn btn-default btn-sm -mg-lf-10" for="file">
+                                        浏览...
+                                        <!--<i class="fa fa-upload"></i>-->
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 icon-required"
+                                       data-locale="cms.channelArticle.column.sortId"
+                                       for="sortId">排序数字</label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" id="sortId" name="sortId" value="0" required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 icon-required"
+                                       data-locale="cms.channelArticle.column.click"
+                                       for="click">浏览次数</label>
+                                <div class="col-sm-7">
+                                    <input class="form-control" id="click" name="click" value="0" required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 "
+                                       data-locale="cms.channelArticle.column.addTime"
+                                       for="addTime">发布时间</label>
+                                <div class="col-sm-7">
+                                    <div class="icon-wrapper">
+                                        <input class="form-control" id="addTime" name="addTimeStr"
+                                               onFocus="WdatePicker({dateFmt:'yyyy-MM-dd  HH:mm:ss'})"
+                                        />
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <div id="div_albums_container" runat="server" visible="false">
+                                    <label class="control-label col-sm-3 icon-required"
+                                           for="hidFocusPhoto">图片相册</label>
+                                    <div class="col-sm-7">
+                                        <div class="upload-box upload-album"></div>
+                                        <input type="hidden" name="hidFocusPhoto" id="hidFocusPhoto" runat="server" class="focus-photo" />
+                                        <div class="photo-list">
+                                            <ul>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <div id="div_attach_container" runat="server" visible="false">
+                                    <label class="control-label col-sm-3 icon-required"
+                                           for="hidFocusAttach">附件</label>
+                                    <div class="col-sm-7">
+                                        <div class="upload-box upload-attach"></div>
+                                        <input type="hidden" name="hidFocusAttach" id="hidFocusAttach" runat="server" class="focus-attach" />
+                                        <div class="attach-list">
+                                            <ul>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane" id="field2">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label class="control-label col-sm-5 "
+                                       data-locale=""
+                                >图片</label>
+                                <div class="col-sm-7">
+                                    <input type="file" class="form-control" id="image" name="image"
+                                           readonly="readonly"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label class="control-label col-sm-5 "
+                                       data-locale=""
+                                >文件</label>
+                                <div class="col-sm-7">
+                                    <input type="file" class="form-control" id="files" name="files"
+                                           readonly="readonly"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label class="control-label col-sm-5 "
+                                       data-locale=""
+                                >视频</label>
+                                <div class="col-sm-7">
+                                    <input type="file" class="form-control" id="video" name="video"
+                                           readonly="readonly"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="field3">
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 "
+                                       data-locale="cms.channelArticle.column.callIndex"
+                                       for="callIndex">调用别名</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="callIndex" name="callIndex"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 "
+                                       data-locale="cms.channelArticle.column.linkUrl"
+                                       for="linkUrl">URL链接</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="linkUrl" name="linkUrl"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 "
+                                       data-locale="cms.channelArticle.column.source"
+                                       for="source">信息来源</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="source" name="source"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 icon-required"
+                                       data-locale="cms.channelArticle.column.author"
+                                       for="author">文章作者</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="author" name="author" required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 "
+                                       data-locale="cms.channelArticle.column.zhaiyao"
+                                       for="zhaiyao">内容摘要</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" id="zhaiyao" name="zhaiyao" maxlength="250"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 icon-required"
+                                       data-locale="cms.channelArticle.column.content"
+                                       for="content">内容</label>
+                                <div class="col-sm-9">
+                                    <script id="content" name="content" type="text/plain"></script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="field4">
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 "
+                                       data-locale="cms.channelArticle.column.seoTitle"
+                                       for="seoTitle">seo标题</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="seoTitle" name="seoTitle"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 "
+                                       data-locale="cms.channelArticle.column.seoKeywords"
+                                       for="seoKeywords">seo关键字</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" id="seoKeywords" name="seoKeywords"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-11">
+                                <label class="control-label col-sm-3 "
+                                       data-locale="cms.channelArticle.column.seoDescription"
+                                       for="seoDescription">seo描述</label>
+                                <div class="col-sm-9">
+                                        <textarea class="form-control" id="seoDescription"
+                                                  name="seoDescription"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="../../plugins/jquery.js"></script>
+<script src="../../plugins/bootstrap/js/bootstrap.js"></script>
+<script src="../../plugins/select2/js/select2.min.js"></script>
+<script src="../../plugins/labelauty/jquery-labelauty.js"></script>
+<script src="../../plugins/datepicker/WdatePicker.js"></script>
+<script src="../../plugins/layer/layer.js"></script>
+<script src="../../plugins/ajaxfileupload/ajaxfileupload.js"></script>
+<script src="../../plugins/uploadify/jquery.uploadify.js"></script>
+<script src="../../js/platform.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../plugins/ueditor/ueditor.config.js"></script>
+<script src="../../plugins/ueditor/ueditor.all.min.js"></script>
+<script src="../../plugins/validator/jquery.validate.min.js"></script>
+<script src="../../plugins/validator/dist/localization/messages_zh.js"></script>
+<script src="../../plugins/webuploader/webuploader.min.js"></script>
+<script src="../../plugins/webuploader/uploader.js"></script>
+<script src="channelArticleForm.js"></script>
+</body>
+</html>
