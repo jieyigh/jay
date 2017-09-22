@@ -1,0 +1,1 @@
+set JAVA_HOME=jdk1.7.0
